@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Bosh sahifa</h1>
+    
+    <h2>Bloglar</h2>
+    <ul>
+        {% for blog in blogs %}
+            <li>
+                <a href="/blog/{{ blog.id }}/">{{ blog.title }}</a> 
+                - {{ blog.created_at|date:"Y-m-d H:i" }}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Mualliflar</h2>
+    <ul>
+        {% for author in authors %}
+            <li>{{ author.name }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
