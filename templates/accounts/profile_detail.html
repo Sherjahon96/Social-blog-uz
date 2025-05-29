@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Profil sahifasi</h2>
+    <div class="card" style="max-width: 400px;">
+        {% if profile.avatar %}
+            <img src="{{ profile.avatar.url }}" class="card-img-top" alt="Profil rasmi">
+        {% else %}
+            <img src="https://via.placeholder.com/400x300.png?text=No+Image" class="card-img-top" alt="Default">
+        {% endif %}
+        <div class="card-body">
+            <h5 class="card-title">{{ request.user.username }}</h5>
+            <p>Email: {{ request.user.email }}</p>
+            <p>Bio: {{ profile.bio|default:"Yo'q" }}</p>
+            <p>Telefon: {{ profile.phone|default:"Kiritilmagan" }}</p>
+            <a href="{% url 'profile_edit' %}" class="btn btn-primary">Profilni tahrirlash</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

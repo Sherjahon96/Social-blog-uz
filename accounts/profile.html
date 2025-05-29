@@ -1,0 +1,7 @@
+{% extends "home.html" %}
+{% block content %}
+<h2>Profil sahifasi</h2>
+<p>Foydalanuvchi nomi: {{ user.username }}</p>
+<p>Email: {{ user.email }}</p>
+<a href="{% url 'logout' %}">Chiqish</a>
+{% endblock %}
