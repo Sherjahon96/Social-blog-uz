@@ -1,6 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+class BlogPost(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE)  # Muallif bilan bog‘lash
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+
 def user_avatar_path(instance, filename):
     return f'avatars/user_{instance.user.id}/{filename}'
 

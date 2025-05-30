@@ -1,0 +1,16 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ post.title }}</h2>
+<p><strong>Muallif:</strong> {{ post.author }}</p>
+<p><em>Yaratilgan vaqti: {{ post.created_at }}</em></p>
+<hr>
+<p>{{ post.content }}</p>
+
+{% if request.user == post.author %}
+    <a href="{% url 'edit_blog_post' post.id %}" class="btn btn-primary">✍️ Tahrirlash</a>
+{% endif %}
+
+<a href="{% url 'blog_list' %}" class="btn btn-secondary">⬅ Barcha bloglar</a>
+{% endblock %}

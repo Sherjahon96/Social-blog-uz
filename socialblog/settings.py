@@ -136,4 +136,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = '/blog/'  # Foydalanuvchi tizimga kirgandan keyin blog sahifasiga yo‘naltiriladi
+#LOGIN_REDIRECT_URL = '/blog/'  # Foydalanuvchi tizimga kirgandan keyin blog sahifasiga yo‘naltiriladi

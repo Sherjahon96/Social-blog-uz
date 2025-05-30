@@ -15,10 +15,15 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
-                <li class="nav-item"><a class="nav-link" href="/">Bosh sahifa</a></li>
-                <li class="nav-item"><a class="nav-link" href="/blog/">Bloglar</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Blogerlar</a></li>
+                <li class="nav-item"><a href="" class="btn btn-outline-info">Bosh sahifa</a></li>
+                <li class="nav-item"><a href="{% url 'blog_list' %}" class="btn btn-outline-info">📜 Bloglar</a></li>
+                <li class="nav-item"><a href="#" class="btn btn-outline-info"> Blogerlar</a></li>
             </ul>
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'create_blog_post' %}" class="btn btn-success">✍ Blog yaratish</a>
+            {% else %}
+                <a href="{% url 'register' %}" class="btn btn-warning">🚀 Blog yaratish</a>   
+            {% endif %}
 
             <!-- Til tanlash -->
             <div class="dropdown me-3">

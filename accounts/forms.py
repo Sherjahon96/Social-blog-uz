@@ -3,6 +3,15 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from .models import UserProfile
 import re
+from .models import BlogPost
+
+
+
+class BlogPostForm(forms.ModelForm):
+    class Meta:
+        model = BlogPost
+        fields = ['title', 'content']
+
 
 class UserRegistrationForm(forms.ModelForm):
     username = forms.CharField(max_length=150)

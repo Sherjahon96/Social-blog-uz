@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>📜 Blog Postlar</h2>
+
+{% for post in posts %}
+    <h3><a href="{% url 'blog_detail' post.id %}">{{ post.title }}</a></h3>
+    <p><strong>Muallif:</strong> {{ post.author }}</p>
+    <p>{{ post.content|truncatewords:30 }}</p>
+    <hr>
+{% empty %}
+    <p>Hozircha blog postlar yo‘q.</p>
+{% endfor %}
+
+
+<a href="{% url 'create_blog_post' %}" class="btn btn-success">➕ Yangi blog yaratish</a>
+{% endblock %}

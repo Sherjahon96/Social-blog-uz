@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>📝 Yangi Blog Post Yaratish</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Saqlash</button>
+</form>
+<a href="{% url 'blog_list' %}" class="btn btn-secondary">⬅ Blog ro‘yxatiga qaytish</a>
+{% endblock %}
