@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Postni o'chirish{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Postni o'chirishni tasdiqlaysizmi?</h2>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h4 class="card-title">{{ post.title }}</h4>
+            <p class="card-text">{{ post.content|truncatewords:30 }}</p>
+            <p><span class="badge bg-primary">{{ post.views }} marta o'qilgan</span></p>
+        </div>
+    </div>
+    
+    <form method="post">
+        {% csrf_token %}
+        <a href="{% url 'my_posts' %}" class="btn btn-secondary">Bekor qilish</a>
+        <button type="submit" class="btn btn-danger">Ha, postni o'chirish</button>
+    </form>
+</div>
+{% endblock %}

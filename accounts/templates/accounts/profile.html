@@ -1,7 +1,26 @@
 {% extends "base.html" %}
+{% load static %}
+
 {% block content %}
-<h2>Profil sahifasi</h2>
-<p>Foydalanuvchi nomi: {{ user.username }}</p>
-<p>Email: {{ user.email }}</p>
-<a href="{% url 'logout' %}">Chiqish</a>
+<div class="container my-5">
+  <div class="card mx-auto" style="max-width: 400px;">
+    <div class="card-body text-center">
+      <!-- Profil avatari -->
+      <img src="{% static 'images/default_avatar.png' %}" alt="Profil rasmi" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px;">
+      
+      <!-- Foydalanuvchi ma'lumotlari -->
+      <h3 class="card-title">{{ user.username }}</h3>
+      
+      {% if user.email %}
+      <p class="card-text">{{ user.email }}</p>
+      {% endif %}
+      
+      <p class="mb-1"><strong>Yaratilgan postlar soni:</strong> {{ user.blog_posts.count }}</p>
+      <p class="mb-1"><strong>Postlarga o'qishlar soni:</strong> {{ total_views }}</p>
+      <p class="mb-0"><strong>Ro'yxatdan o'tgan sanasi:</strong> {{ user.date_joined|date:"d M Y" }}</p>
+      
+      <a href="{% url 'logout' %}" class="btn btn-outline-danger mt-3">Chiqish</a>
+    </div>
+  </div>
+</div>
 {% endblock %}

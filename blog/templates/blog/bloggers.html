@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Blogerlar{% endblock %}
+
+{% block content %}
+<h2 class="text-center mb-4 ">👨‍💻 Blogerlar</h2>
+<ul class="list-group card mb-4">
+    {% for blogger in bloggers %}
+        <li class="list-group-item d-flex justify-content-between align-items-center m-2 rounded border border-secondary">
+            {{ blogger.username }}
+            {# Kelajakda bu yerga reyting yoki boshqa statisnik ma'lumotlar qo'shilishi mumkin #}
+        </li>
+    {% empty %}
+        <li class="list-group-item">Hozircha ro'yxatdan o'tgan foydalanuvchilar yo'q.</li>
+    {% endfor %}
+</ul>
+
+<nav aria-label="Page navigation">
+  <ul class="pagination justify-content-center">
+    {% if bloggers.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ bloggers.previous_page_number }}" aria-label="Oldingi">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+        <span class="page-link">&laquo;</span>
+      </li>
+    {% endif %}
+    
+    {% for num in bloggers.paginator.page_range %}
+      {% if bloggers.number == num %}
+        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+      {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+      {% endif %}
+    {% endfor %}
+
+    {% if bloggers.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ bloggers.next_page_number }}" aria-label="Keyingi">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+        <span class="page-link">&raquo;</span>
+      </li>
+    {% endif %}
+  </ul>
+</nav>
+
+
+{% endblock %}

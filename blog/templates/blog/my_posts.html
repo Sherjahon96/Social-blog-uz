@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5">
+  <h2 class="mb-4">📜 Mening postlarim</h2>
+  {% for post in posts %}
+    <div class="card mb-3 shadow-sm">
+      <div class="card-body">
+        <!-- Post sarlavhasi -->
+        <h4 class="card-title mb-2">
+          <a href="{% url 'blog_detail' post.id %}"
+             class="text-dark text-decoration-none"
+             style="font-weight: bold; font-size: 1.5rem;">
+            {{ post.title }}
+          </a>
+        </h4>
+        <!-- Post matni -->
+        <p class="card-text">{{ post.content|truncatewords:30 }}</p>
+        <!-- Qo'shilgan sana -->
+        <p class="card-text">
+          <small class="text-muted">Qo'shilgan: {{ post.created_at|date:"d M Y" }}</small>
+        </p>
+        <!-- O'qishlar soni -->
+        <p class="mb-3">
+          <span class="badge bg-primary">{{ post.views }} marta o'qilgan</span>
+        </p>
+        <!-- Tahrirlash va O'chirish tugmalari -->
+        <div class="d-flex justify-content-end">
+          <a href="{% url 'edit_blog_post' post.id %}" class="btn btn-sm btn-info me-2">Tahrirlash</a>
+          <a href="{% url 'delete_blog_post' post.id %}" class="btn btn-sm btn-danger">O'chirish</a>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p>Hozircha siz yaratgan blog postlar yo'q.</p>
+  {% endfor %}
+</div>
+{% endblock %}

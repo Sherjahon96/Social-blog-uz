@@ -1,17 +1,77 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>📜 Blog Postlar</h2>
+<div class="container mt-5">
+  <h2 class="mb-4">📜 Blog Postlar</h2>
 
-{% for post in posts %}
-    <h3><a href="{% url 'blog_detail' post.id %}">{{ post.title }}</a></h3>
-    <p><strong>Muallif:</strong> {{ post.author }}</p>
-    <p>{{ post.content|truncatewords:30 }}</p>
-    <hr>
-{% empty %}
-    <p>Hozircha blog postlar yo‘q.</p>
-{% endfor %}
+  {% for post in posts %}
+    <div class="card mb-3 shadow-sm">
+      <div class="card-body bg-secondary rounded">
+        <!-- Post sarlavhasi, tepa-chap, jozibador shrift bilan -->
+        <h3 class="card-title mb-2">
+          <a href="{% url 'blog_detail' post.id %}"
+             class="text-light text-decoration-none"
+             style="font-weight: bold; font-size: 1.75rem;">
+            {{ post.title }}
+          </a>
+        </h3>
+        <!-- Post muallifi, sarlavha ostida -->
+        <p class="card-text text-light mb-2">
+          <small><strong>Muallif:</strong> {{ post.author.username }}</small>
+        </p>
+        <!-- Post matni -->
+        <p class="card-text mb-3">
+          {{ post.content|truncatewords:30 }}
+        </p>
+        <!-- Batafsil o'qish tugmasi -->
+        <a href="{% url 'blog_detail' post.id %}" class="btn btn-outline-light btn-sm">
+          Batafsil o'qish
+        </a>
+      </div>
+    </div>
+  {% empty %}
+    <p>Hozircha postlar yo‘q.</p>
+  {% endfor %}
 
+  <!-- Pagination blok -->
+  <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+      {% if posts.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ posts.previous_page_number }}" aria-label="Oldingi">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+      {% else %}
+        <li class="page-item disabled">
+          <span class="page-link">&laquo;</span>
+        </li>
+      {% endif %}
 
-<a href="{% url 'create_blog_post' %}" class="btn btn-success">➕ Yangi blog yaratish</a>
+      {% for num in posts.paginator.page_range %}
+        {% if posts.number == num %}
+          <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+        {% else %}
+          <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+        {% endif %}
+      {% endfor %}
+
+      {% if posts.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ posts.next_page_number }}" aria-label="Keyingi">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      {% else %}
+        <li class="page-item disabled">
+          <span class="page-link">&raquo;</span>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+
+  <div class="text-end mb-5">
+    <a href="{% url 'create_blog_post' %}" class="btn btn-success">➕ Yangi blog yaratish</a>
+  </div>
+</div>
 {% endblock %}

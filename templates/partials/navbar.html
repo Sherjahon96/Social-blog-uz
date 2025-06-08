@@ -1,35 +1,54 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">Social-Blog.uz</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-           class="nav-item"><a href="" class="btn btn-outline-info">Bosh sahifa</a>
-        </li>
-        <li class="nav-item">
-          <a href="{% url 'blog_list' %}" class="btn btn-info">📝 Bloglarni ko‘rish</a>
-        </li>
-      </ul>
-      <ul class="navbar-nav">
-        {% if user.is_authenticated %}
-          <li class="nav-item">
-            <a class="nav-link" href="#">Salom, {{ user.username }}</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/accounts/logout/">Chiqish</a>
-          </li>
-        {% else %}
-          <li class="nav-item">
-            <a class="nav-link" href="/accounts/login/">Kirish</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/accounts/register/">Ro'yxatdan o'tish</a>
-          </li>
-        {% endif %}
-      </ul>
+<nav class="navbar navbar-expand-lg navbar-dark shadow" style="background-color: #2c3e50; color: white;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home' %}">Social blog</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" 
+            aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav ms-auto">
+
+                <!-- Til tanlash menyusi -->
+                <li class="nav-item dropdown me-3">
+                    <a class="nav-link dropdown-toggle" href="#" id="langDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        🌐 Til
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="langDropdown">
+                        <li><a class="dropdown-item" href="{% url 'set_language' %}?language=uz">🇺🇿 O‘zbekcha</a></li>
+                        <li><a class="dropdown-item" href="{% url 'set_language' %}?language=ru">🇷🇺 Русский</a></li>
+                        <li><a class="dropdown-item" href="{% url 'set_language' %}?language=en">🇬🇧 English</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'blog_list' %}">📜 Bloglar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'bloggers_list' %}">👨‍💻 Blogerlar</a>
+                </li>
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" 
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            👤 {{ request.user.username }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                            <li><a class="dropdown-item" href="{% url 'profile_detail' %}">Mening profilim</a></li>
+                            <li><a class="dropdown-item" href="{% url 'my_posts' %}">📝 Mening postlarim</a></li>
+                            <li><a class="dropdown-item" href="#">Sozlamalar</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Chiqish</a></li>
+                        </ul>                       
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">🔑 Kirish</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">📝 Ro‘yxatdan o‘tish</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
     </div>
-  </div>
 </nav>

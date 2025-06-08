@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from django.utils.translation import gettext_lazy as _
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,9 +29,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 SECRET_KEY = 'django-insecure-qjy)3364**-jd*o%_epj^wp#z)nwc+*=6@9&=xdw_hjc4_!p$9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True  # Ishlab chiqarish uchun
+ALLOWED_HOSTS = []  # Domeningizni qo'shing
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -40,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog',  # Blog ilovamizni qo‘shdik
+    'blog',  
     'crispy_forms',
     'crispy_bootstrap5',
     'accounts.apps.AccountsConfig',
@@ -117,11 +120,21 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGES = [
+    ('uz', _('O‘zbek')),
+    ('ru', _('Русский')),
+    ('en', _('English')),
+]
+LANGUAGE_CODE = 'uz'
+USE_I18N = True  # Ko‘ptillilikni yoqish
+USE_L10N = True
+
+
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',  # Tarjima fayllari uchun papka
+]
 
 TIME_ZONE = 'Asia/Tashkent'
-
-USE_I18N = True
 
 USE_TZ = True
 
@@ -129,7 +142,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # Statik fayllar uchun yo'l
+]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
